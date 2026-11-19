@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Show agents peer dependencies
+        run: npm view agents@0.33.0 peerDependencies dependencies
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
