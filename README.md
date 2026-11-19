@@ -34,13 +34,13 @@ npx wrangler r2 bucket create project-memory-files
 # 2. Create the tables
 npm run db:migrate
 
-# 3. Deploy once to get your URL (https://project-memory-mcp.<you>.workers.dev)
+# 3. Deploy once to get your URL (https://data-warehouse.<you>.workers.dev)
 npm run deploy
 ```
 
 4. **Create a GitHub OAuth App** at GitHub → Settings → Developer settings → OAuth Apps → New:
-   - Homepage URL: `https://project-memory-mcp.<you>.workers.dev`
-   - Authorization callback URL: `https://project-memory-mcp.<you>.workers.dev/callback`
+   - Homepage URL: `https://data-warehouse.<you>.workers.dev`
+   - Authorization callback URL: `https://data-warehouse.<you>.workers.dev/callback`
 
 5. **Add the secrets** and deploy again:
 
@@ -53,7 +53,7 @@ npm run deploy
 
 ## Connect your AI apps
 
-Use this URL: `https://project-memory-mcp.<you>.workers.dev/mcp`
+Use this URL: `https://data-warehouse.<you>.workers.dev/mcp`
 
 - **Claude:** Settings → Connectors → Add custom connector → paste URL
 - **ChatGPT:** Settings → Apps & Connectors (Developer mode) → add custom connector → paste URL
