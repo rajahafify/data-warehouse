@@ -64,7 +64,12 @@ Each app opens a consent page, then GitHub sign-in.
 ## Auto-deploy from GitHub
 
 In the Cloudflare dashboard, open the Worker and connect this repo in its build settings. Every push to `main` then deploys.
-Database changes are not automatic: add a new file in `migrations/` and run `npm run db:migrate`.
+Database changes run through GitHub Actions (`.github/workflows/d1-migrations.yml`): add a new numbered file in `migrations/` (e.g. `0002_add_tags.sql`) and push. You can also run it by hand from the repo's **Actions** tab → **D1 migrations** → **Run workflow**.
+
+The Action needs two repository secrets (GitHub → repo → Settings → Secrets and variables → Actions):
+
+- `CLOUDFLARE_API_TOKEN`: a Cloudflare API token with **Account → D1 → Edit** permission
+- `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
 
 ## Local development
 

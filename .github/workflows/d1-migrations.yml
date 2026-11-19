@@ -1,0 +1,33 @@
+name: D1 migrations
+
+# Creates/updates the database tables in Cloudflare D1.
+# Runs when a file in migrations/ changes on main, or manually from the Actions tab.
+# Deploying the Worker itself is handled by Cloudflare Workers Builds.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "migrations/**"
+      - ".github/workflows/d1-migrations.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: d1-migrations
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply migrations to remote D1
+        run: npx --yes wrangler@4 d1 migrations apply project-memory --remote
+        env:
+          CI: "true"
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
