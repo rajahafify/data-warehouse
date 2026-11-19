@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local development (never commit .dev.vars).
+# Use a separate GitHub OAuth app for local dev with callback http://localhost:8787/callback
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+ALLOWED_GITHUB_USERS=your-github-username

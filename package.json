@@ -1,0 +1,26 @@
+{
+  "name": "project-memory-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply project-memory --local",
+    "db:migrate": "wrangler d1 migrations apply project-memory --remote",
+    "typecheck": "tsc --noEmit",
+    "inspect": "npx @modelcontextprotocol/inspector@latest"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "latest",
+    "@modelcontextprotocol/sdk": "latest",
+    "agents": "latest",
+    "hono": "^4.6.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "typescript": "^5.6.0",
+    "wrangler": "latest"
+  }
+}
