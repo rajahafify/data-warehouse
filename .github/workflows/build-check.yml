@@ -20,15 +20,8 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Inspect oauth provider types
-        run: |
-          f=$(ls node_modules/@cloudflare/workers-oauth-provider/dist/*.d.ts | head -1); echo $f
-          grep -n -B3 -A25 'resourceMetadata' node_modules/@cloudflare/workers-oauth-provider/dist/*.d.ts | head -150
-          grep -n -A40 'interface ResourceMetadata\|type ResourceMetadata\|ProtectedResourceMetadata' node_modules/@cloudflare/workers-oauth-provider/dist/*.d.ts | head -80
-
       - name: Bundle Worker (dry run)
         run: npx wrangler deploy --dry-run --outdir dist
 
       - name: Type check
         run: npx tsc --noEmit
-        continue-on-error: true

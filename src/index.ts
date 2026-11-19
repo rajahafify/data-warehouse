@@ -23,14 +23,38 @@ export class ProjectMemoryMCP extends McpAgent<Env, Record<string, never>, Props
   }
 }
 
-export default new OAuthProvider({
-  apiHandlers: {
-    "/mcp": ProjectMemoryMCP.serve("/mcp"), // Streamable HTTP (current standard)
-    "/sse": ProjectMemoryMCP.serveSSE("/sse"), // legacy SSE, for older clients
+/**
+ * The OAuth provider needs the server's public URL (RFC 9728 resource metadata).
+ * It's taken from the incoming request, so the same code works on workers.dev
+ * and on a custom domain. One provider is cached per origin.
+ */
+const providers = new Map<string, OAuthProvider>();
+
+function providerFor(origin: string): OAuthProvider {
+  let provider = providers.get(origin);
+  if (!provider) {
+    provider = new OAuthProvider({
+      apiHandlers: {
+        "/mcp": ProjectMemoryMCP.serve("/mcp"), // Streamable HTTP
+      },
+      // biome-ignore lint/suspicious/noExplicitAny: Hono app satisfies the fetch handler shape
+      defaultHandler: AuthHandler as any,
+      authorizeEndpoint: "/authorize",
+      tokenEndpoint: "/token",
+      clientRegistrationEndpoint: "/register",
+      resourceMetadata: {
+        resource: `${origin}/mcp`,
+        resource_name: "Project memory",
+      },
+    });
+    providers.set(origin, provider);
+  }
+  return provider;
+}
+
+export default {
+  fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const origin = new URL(request.url).origin.toLowerCase();
+    return providerFor(origin).fetch(request, env, ctx);
   },
-  // biome-ignore lint/suspicious/noExplicitAny: Hono app satisfies the fetch handler shape
-  defaultHandler: AuthHandler as any,
-  authorizeEndpoint: "/authorize",
-  tokenEndpoint: "/token",
-  clientRegistrationEndpoint: "/register",
-});
+} satisfies ExportedHandler<Env>;
