@@ -12,15 +12,17 @@
     "inspect": "npx @modelcontextprotocol/inspector@latest"
   },
   "dependencies": {
-    "@cloudflare/workers-oauth-provider": "latest",
-    "@modelcontextprotocol/sdk": "latest",
-    "agents": "latest",
-    "hono": "^4.6.0",
-    "zod": "^3.25.0"
+    "@cloudflare/workers-oauth-provider": "1.2.4",
+    "@modelcontextprotocol/client": "2.3.1",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@modelcontextprotocol/server": "2.3.1",
+    "agents": "0.33.0",
+    "hono": "4.13.19",
+    "zod": "3.25.76"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "latest",
-    "typescript": "^5.6.0",
-    "wrangler": "latest"
+    "@cloudflare/workers-types": "5.20261119.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.165.0"
   }
 }
