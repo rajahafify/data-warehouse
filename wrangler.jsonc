@@ -16,7 +16,7 @@
     {
       "binding": "DB",
       "database_name": "project-memory",
-      "database_id": "REPLACE_WITH_D1_ID",
+      "database_id": "4cb5145b-0c96-4e0f-8454-327563190cb1",
       "migrations_dir": "migrations"
     }
   ],
@@ -25,7 +25,7 @@
   "r2_buckets": [{ "binding": "FILES", "bucket_name": "project-memory-files" }],
 
   // OAuth tokens and sign-in state. Replace id after `npx wrangler kv namespace create OAUTH_KV`.
-  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_KV_ID" }],
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "c7c53d37107d4a84a1121adf023126ed" }],
 
   "observability": { "enabled": true }
 }
